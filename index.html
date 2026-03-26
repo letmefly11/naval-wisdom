@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naval Ravikant 智慧频道 — 随时收听</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+
+        :root {
+            --bg: #080b16;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2240;
+            --text: #e8e6f0;
+            --text-dim: #7c8bb5;
+            --accent: #818cf8;
+            --accent-glow: rgba(129, 140, 248, 0.25);
+            --gold: #fbbf24;
+            --gold-glow: rgba(251, 191, 36, 0.15);
+            --green: #34d399;
+            --border: rgba(129, 140, 248, 0.1);
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Deep cosmic background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 120% 80% at 50% -20%, rgba(30, 27, 75, 0.8) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 50% at 80% 50%, rgba(17, 24, 60, 0.6) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 10% 80%, rgba(30, 15, 50, 0.5) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(1.5px 1.5px at 20% 15%, rgba(255,255,255,0.15) 50%, transparent 50%),
+                radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,0.1) 50%, transparent 50%),
+                radial-gradient(1.5px 1.5px at 85% 45%, rgba(255,255,255,0.12) 50%, transparent 50%),
+                radial-gradient(1px 1px at 40% 65%, rgba(255,255,255,0.08) 50%, transparent 50%),
+                radial-gradient(1.5px 1.5px at 15% 85%, rgba(255,255,255,0.1) 50%, transparent 50%),
+                radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.07) 50%, transparent 50%),
+                radial-gradient(2px 2px at 50% 10%, rgba(129,140,248,0.3) 50%, transparent 50%),
+                radial-gradient(2px 2px at 30% 50%, rgba(251,191,36,0.15) 50%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 42px;
+            box-shadow: 0 0 40px var(--accent-glow);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--accent-glow); }
+            50% { box-shadow: 0 0 60px var(--accent-glow), 0 0 100px rgba(99,102,241,0.1); }
+        }
+
+        h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff, #c7d2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+
+        /* Stats bar */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        /* Quote banner */
+        .quote-banner {
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.5), rgba(17, 24, 60, 0.4));
+            border: 1px solid rgba(129, 140, 248, 0.12);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            margin: 32px 0 48px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+        }
+
+        .quote-banner::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 16px;
+            font-size: 6rem;
+            color: rgba(99,102,241,0.15);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #c7d2fe;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 12px;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* Section titles */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .section-title h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+        }
+
+        .section-badge {
+            background: linear-gradient(135deg, var(--gold), #d97706);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Episode cards */
+        .episodes {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 56px;
+        }
+
+        .episode-card {
+            background: linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(15, 18, 35, 0.95));
+            border: 1px solid rgba(129, 140, 248, 0.08);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .episode-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .episode-card:hover {
+            background: linear-gradient(145deg, rgba(26, 34, 64, 0.95), rgba(20, 25, 50, 0.98));
+            border-color: rgba(129, 140, 248, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(129, 140, 248, 0.06);
+        }
+
+        .episode-card:hover::before {
+            opacity: 1;
+        }
+
+        .episode-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .episode-rank {
+            min-width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.85rem;
+        }
+
+        .rank-legendary {
+            background: linear-gradient(135deg, var(--gold), #d97706);
+            color: #000;
+            box-shadow: 0 4px 16px var(--gold-glow);
+        }
+
+        .rank-premium {
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            color: white;
+        }
+
+        .rank-great {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-dim);
+        }
+
+        .episode-info { flex: 1; }
+
+        .episode-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .episode-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .episode-desc {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin: 12px 0;
+        }
+
+        .episode-topics {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .topic-tag {
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            border-radius: 100px;
+            background: rgba(99,102,241,0.1);
+            color: #a5b4fc;
+            border: 1px solid rgba(99,102,241,0.15);
+        }
+
+        /* Play button */
+        .play-links {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .play-btn.spotify {
+            background: #1db954;
+            color: white;
+        }
+
+        .play-btn.spotify:hover {
+            background: #1ed760;
+            box-shadow: 0 4px 20px rgba(29,185,84,0.3);
+        }
+
+        .play-btn.youtube {
+            background: #ff0000;
+            color: white;
+        }
+
+        .play-btn.youtube:hover {
+            background: #ff2020;
+            box-shadow: 0 4px 20px rgba(255,0,0,0.3);
+        }
+
+        .play-btn.web {
+            background: rgba(255,255,255,0.08);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .play-btn.web:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Now playing bar */
+        .now-playing {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(18, 18, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px;
+            display: none;
+            align-items: center;
+            gap: 16px;
+            z-index: 100;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .now-playing.active { display: flex; }
+
+        .np-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .np-info { flex: 1; min-width: 0; }
+
+        .np-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .np-sub {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .np-wave {
+            display: flex;
+            align-items: end;
+            gap: 3px;
+            height: 24px;
+        }
+
+        .np-wave span {
+            width: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .np-wave span:nth-child(1) { animation-delay: 0s; height: 8px; }
+        .np-wave span:nth-child(2) { animation-delay: 0.15s; height: 16px; }
+        .np-wave span:nth-child(3) { animation-delay: 0.3s; height: 12px; }
+        .np-wave span:nth-child(4) { animation-delay: 0.45s; height: 20px; }
+        .np-wave span:nth-child(5) { animation-delay: 0.6s; height: 10px; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.4); }
+        }
+
+        .np-close {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Wisdom section */
+        .wisdom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 56px;
+        }
+
+        .wisdom-card {
+            background: linear-gradient(160deg, rgba(17, 24, 39, 0.85), rgba(12, 15, 30, 0.9));
+            border: 1px solid rgba(129, 140, 248, 0.08);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.3s;
+            backdrop-filter: blur(8px);
+        }
+
+        .wisdom-card:hover {
+            border-color: rgba(251, 191, 36, 0.2);
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.08), inset 0 0 30px rgba(251, 191, 36, 0.03);
+        }
+
+        .wisdom-icon {
+            font-size: 1.8rem;
+            margin-bottom: 14px;
+        }
+
+        .wisdom-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .wisdom-text {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* Resources */
+        .resources {
+            margin-bottom: 80px;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .resource-link:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(99,102,241,0.2);
+            transform: translateX(4px);
+        }
+
+        .resource-icon {
+            font-size: 1.4rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .resource-info { flex: 1; }
+
+        .resource-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .resource-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        .resource-arrow {
+            color: var(--text-dim);
+            transition: transform 0.3s;
+        }
+
+        .resource-link:hover .resource-arrow {
+            transform: translateX(4px);
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            .stats { gap: 20px; }
+            .episode-header { flex-direction: column; }
+            .play-links { flex-wrap: wrap; }
+            header { padding: 40px 0 24px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <header>
+            <div class="avatar">N</div>
+            <h1>Naval Ravikant 智慧频道</h1>
+            <p class="subtitle">硅谷哲学家投资人 Naval 最精华的访谈与思想，按评分精选排序，随时随地打开收听</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-num">15+</div>
+                    <div class="stat-label">精选访谈</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">50h+</div>
+                    <div class="stat-label">收听时长</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">10</div>
+                    <div class="stat-label">核心主题</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Rotating quotes -->
+        <div class="quote-banner" id="quoteBanner">
+            <div class="quote-text" id="quoteText">Seek wealth, not money or status. Wealth is having assets that earn while you sleep.</div>
+            <div class="quote-author">— Naval Ravikant</div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="wealth">财富</button>
+            <button class="filter-btn" data-filter="happiness">幸福</button>
+            <button class="filter-btn" data-filter="philosophy">哲学</button>
+            <button class="filter-btn" data-filter="startup">创业</button>
+            <button class="filter-btn" data-filter="ai">AI/科技</button>
+        </div>
+
+        <!-- Legendary tier -->
+        <div class="section-title">
+            <h2>殿堂级必听</h2>
+            <span class="section-badge">LEGENDARY</span>
+        </div>
+
+        <div class="episodes" id="legendaryEpisodes">
+            <!-- Episode 1 -->
+            <div class="episode-card" data-tags="wealth,happiness,philosophy">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">1</div>
+                    <div class="episode-info">
+                        <div class="episode-title">The Knowledge Project #36 — Naval Ravikant</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2017</span>
+                            <span class="meta-tag">Shane Parrish</span>
+                            <span class="meta-tag">~2h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    被公认为"史上最佳播客单集"。Naval 深入探讨阅读习惯、决策心智模型、幸福的定义以及人生意义。这一期改变了无数人的思维方式。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">心智模型</span>
+                    <span class="topic-tag">阅读</span>
+                    <span class="topic-tag">决策</span>
+                    <span class="topic-tag">人生意义</span>
+                    <span class="topic-tag">幸福</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://open.spotify.com/show/1VyK52NSZHaDKeMJzT4TSM" target="_blank" class="play-btn spotify">Spotify</a>
+                    <a href="https://www.youtube.com/results?search_query=naval+ravikant+knowledge+project+shane+parrish" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://fs.blog/knowledge-project-podcast/naval-ravikant/" target="_blank" class="play-btn web">官网</a>
+                </div>
+            </div>
+
+            <!-- Episode 2 -->
+            <div class="episode-card" data-tags="wealth,philosophy,ai">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">2</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Joe Rogan Experience #1309 — Naval Ravikant</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2019</span>
+                            <span class="meta-tag">Joe Rogan</span>
+                            <span class="meta-tag">~2h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    JRE 最高评分的访谈之一。Naval 分解"如何不靠运气致富"的推文风暴，谈论 specific knowledge、杠杆、AI 与幸福哲学。深入浅出，通俗易懂。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">致富</span>
+                    <span class="topic-tag">杠杆</span>
+                    <span class="topic-tag">AI</span>
+                    <span class="topic-tag">幸福</span>
+                    <span class="topic-tag">哲学</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://open.spotify.com/episode/3ijkVfaht5kcFPvHcCbYYD" target="_blank" class="play-btn spotify">Spotify</a>
+                    <a href="https://www.youtube.com/results?search_query=joe+rogan+naval+ravikant+1309" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <!-- Episode 3 -->
+            <div class="episode-card" data-tags="startup,wealth">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">3</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Tim Ferriss Show #97 — The Evolutionary Angel</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2015</span>
+                            <span class="meta-tag">Tim Ferriss</span>
+                            <span class="meta-tag">~1.5h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 在 Tim Ferriss 节目上的首次亮相，获"年度播客"提名。详细分享天使投资策略、如何评估创业者、以及他从投资 Twitter/Uber 中学到的人生智慧。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">天使投资</span>
+                    <span class="topic-tag">创业</span>
+                    <span class="topic-tag">Twitter</span>
+                    <span class="topic-tag">Uber</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://open.spotify.com/episode/1yTaZvBKLTwVQHcNTvZ19i" target="_blank" class="play-btn spotify">Spotify</a>
+                    <a href="https://www.youtube.com/results?search_query=tim+ferriss+naval+ravikant+97" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://tim.blog/naval-ravikant-on-the-tim-ferriss-show-transcript/" target="_blank" class="play-btn web">文字稿</a>
+                </div>
+            </div>
+
+            <!-- Episode 4 -->
+            <div class="episode-card" data-tags="wealth">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">4</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Naval Podcast — "How to Get Rich" 完整系列 (79集)</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2019</span>
+                            <span class="meta-tag">Naval × Nivi</span>
+                            <span class="meta-tag">~13h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 与 Babak Nivi 对其传奇推文"How to Get Rich (Without Getting Lucky)"的逐条深度解读。79 集短播客涵盖：specific knowledge、杠杆、判断力、网络效应等核心财富原理。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">Specific Knowledge</span>
+                    <span class="topic-tag">杠杆</span>
+                    <span class="topic-tag">判断力</span>
+                    <span class="topic-tag">网络效应</span>
+                    <span class="topic-tag">股权</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://open.spotify.com/show/7qZAVw03FuurfYnWIWwkHY" target="_blank" class="play-btn spotify">Spotify</a>
+                    <a href="https://www.youtube.com/results?search_query=naval+ravikant+how+to+get+rich+podcast" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://nav.al/rich" target="_blank" class="play-btn web">文字版</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium tier -->
+        <div class="section-title">
+            <h2>精品推荐</h2>
+            <span class="section-badge" style="background: linear-gradient(135deg, var(--accent), #8b5cf6);">PREMIUM</span>
+        </div>
+
+        <div class="episodes" id="premiumEpisodes">
+            <div class="episode-card" data-tags="happiness,philosophy">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">5</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Tim Ferriss #473 — 论幸福、焦虑与加密货币</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2020</span>
+                            <span class="meta-tag">Tim Ferriss</span>
+                            <span class="meta-tag">~2h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 最深入的幸福哲学对谈。如何通过冥想减少焦虑，重新定义幸福，以及对加密货币未来的前瞻性思考。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">幸福</span>
+                    <span class="topic-tag">冥想</span>
+                    <span class="topic-tag">焦虑</span>
+                    <span class="topic-tag">加密货币</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://open.spotify.com/episode/0ZNcGEsBMjWbMbJEraJxVz" target="_blank" class="play-btn spotify">Spotify</a>
+                    <a href="https://www.youtube.com/results?search_query=tim+ferriss+naval+happiness+473" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card" data-tags="philosophy,startup">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">6</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Tim Ferriss #788 — 如何培养一个独立自主的孩子</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2025</span>
+                            <span class="meta-tag">Tim Ferriss</span>
+                            <span class="meta-tag">~1.5h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 最新访谈之一，与 Aaron Stupple 共同探讨教育哲学：如何培养孩子的独立思考能力、主权意识与创造力。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">教育</span>
+                    <span class="topic-tag">育儿</span>
+                    <span class="topic-tag">独立思考</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://open.spotify.com/episode/3acQvHYiBhsxO9KWT86AdF" target="_blank" class="play-btn spotify">Spotify</a>
+                    <a href="https://www.youtube.com/results?search_query=tim+ferriss+naval+788+sovereign+child" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card" data-tags="happiness,philosophy">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">7</div>
+                    <div class="episode-info">
+                        <div class="episode-title">BeerBiceps / The Ranveer Show #446</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2023</span>
+                            <span class="meta-tag">Ranveer Allahbadia</span>
+                            <span class="meta-tag">~1.5h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 罕见地展现轻松一面，深入聊灵性成长、爱情哲学与个人修炼。印度风格的访谈让 Naval 展现了不同于硅谷精英的亲和力。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">灵性</span>
+                    <span class="topic-tag">爱</span>
+                    <span class="topic-tag">个人成长</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=naval+ravikant+beerbiceps+ranveer+show+446" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card" data-tags="ai,philosophy">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">8</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Milken Institute — Naval × Sadhguru</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2024</span>
+                            <span class="meta-tag">Milken Institute</span>
+                            <span class="meta-tag">~45min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 对话印度灵性导师 Sadhguru，探讨内在技术与外在技术如何融合，AI 时代人类的精神韧性。东西方智慧的碰撞。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">灵性</span>
+                    <span class="topic-tag">AI</span>
+                    <span class="topic-tag">内在技术</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=naval+ravikant+sadhguru+milken+institute" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card" data-tags="ai,wealth,philosophy">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">9</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Network State Conference — Naval × Balaji Srinivasan</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2024</span>
+                            <span class="meta-tag">Network State</span>
+                            <span class="meta-tag">~1h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    两位硅谷最具前瞻性的思想家对话：重新定义财富与知识，AI 对社会的深层影响，以及网络国家的未来。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">AI</span>
+                    <span class="topic-tag">财富定义</span>
+                    <span class="topic-tag">网络国家</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=naval+ravikant+balaji+network+state+conference" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card" data-tags="ai,philosophy">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">10</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Vitalia Conference — AI、长寿与加速主义</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2024</span>
+                            <span class="meta-tag">Niklas Anzinger</span>
+                            <span class="meta-tag">~1h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 深入探讨长寿科学、加速主义与监管的平衡，以及 AI 对人类福祉的影响。比其他访谈更深入地讨论了 AI 的前沿话题。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">长寿</span>
+                    <span class="topic-tag">AI</span>
+                    <span class="topic-tag">加速主义</span>
+                    <span class="topic-tag">监管</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=naval+ravikant+vitalia+niklas+anzinger" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card" data-tags="wealth,startup">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">11</div>
+                    <div class="episode-info">
+                        <div class="episode-title">The Knowledge Project #171 — 回归</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2022</span>
+                            <span class="meta-tag">Shane Parrish</span>
+                            <span class="meta-tag">~1.5h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    Naval 回到让他封神的节目，5 年后重新审视原来的观点。探讨思维演变、新的人生洞察，以及对科技行业的最新思考。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">心智模型</span>
+                    <span class="topic-tag">思维演变</span>
+                    <span class="topic-tag">人生洞察</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://fs.blog/knowledge-project-podcast/naval-ravikant-171/" target="_blank" class="play-btn web">官网</a>
+                    <a href="https://www.youtube.com/results?search_query=naval+ravikant+knowledge+project+171" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Naval's Core Wisdom -->
+        <div class="section-title">
+            <h2>Naval 核心思想地图</h2>
+        </div>
+
+        <div class="wisdom-grid">
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f4b0;</div>
+                <div class="wisdom-title">财富公式</div>
+                <div class="wisdom-text">财富 = 拥有能在你睡觉时赚钱的资产。出租时间无法致富，你必须拥有股权。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f9e0;</div>
+                <div class="wisdom-title">Specific Knowledge</div>
+                <div class="wisdom-text">培养无法被培训出来的独特知识。它来自你真正的好奇心和热情，而非学校教育。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x2696;&#xfe0f;</div>
+                <div class="wisdom-title">杠杆</div>
+                <div class="wisdom-text">三种杠杆：资本、人力、零边际成本的产品（代码和媒体）。最后一种最民主。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f60c;</div>
+                <div class="wisdom-title">幸福</div>
+                <div class="wisdom-text">幸福是不需要任何外物时的默认状态。减少欲望比增加拥有更有效。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f4da;</div>
+                <div class="wisdom-title">阅读</div>
+                <div class="wisdom-text">读你真正喜欢的书，不是别人推荐的。读基础学科（数学、科学、哲学），不是畅销书。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f3af;</div>
+                <div class="wisdom-title">判断力</div>
+                <div class="wisdom-text">判断力是最高级的杠杆。做对一个决策比辛苦工作一年更有价值。</div>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="section-title">
+            <h2>延伸阅读资源</h2>
+        </div>
+
+        <div class="resources">
+            <a href="https://www.navalmanack.com" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1f4d6;</span>
+                <div class="resource-info">
+                    <div class="resource-name">The Almanack of Naval Ravikant</div>
+                    <div class="resource-desc">Eric Jorgenson 编撰的 Naval 智慧全集，免费在线阅读</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+            <a href="https://zhuanlan.zhihu.com/p/82455872" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1f1e8;&#x1f1f3;</span>
+                <div class="resource-info">
+                    <div class="resource-name">知乎：Knowledge Project 访谈中文翻译（七篇）</div>
+                    <div class="resource-desc">殿堂级访谈的完整中文翻译，适合精读</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+            <a href="https://nav.al" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1f310;</span>
+                <div class="resource-info">
+                    <div class="resource-name">nav.al — Naval 个人网站</div>
+                    <div class="resource-desc">Naval 官方网站，所有推文、播客和文章的集合</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+            <a href="https://twitter.com/naval" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1d54f;</span>
+                <div class="resource-info">
+                    <div class="resource-name">@naval — X (Twitter)</div>
+                    <div class="resource-desc">Naval 的推特，每条都值得反复阅读的智慧金句</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+            <a href="https://book.douban.com/subject/35219944/" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x2b50;</span>
+                <div class="resource-info">
+                    <div class="resource-name">豆瓣：纳瓦尔宝典</div>
+                    <div class="resource-desc">中文社区书评与讨论</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>Naval Ravikant 智慧频道 &mdash; 精心策展，随时收听</p>
+            <p style="margin-top: 8px; font-size: 0.72rem;">所有内容版权归原创作者所有，本页仅作索引导航</p>
+        </footer>
+    </div>
+
+    <!-- Now Playing Bar -->
+    <div class="now-playing" id="nowPlaying">
+        <div class="np-icon">&#x1f3a7;</div>
+        <div class="np-info">
+            <div class="np-title" id="npTitle">正在播放...</div>
+            <div class="np-sub" id="npSub"></div>
+        </div>
+        <div class="np-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <button class="np-close" onclick="document.getElementById('nowPlaying').classList.remove('active')">&times;</button>
+    </div>
+
+    <script>
+        // Quote rotation
+        const quotes = [
+            { text: "Seek wealth, not money or status. Wealth is having assets that earn while you sleep.", zh: "追求财富，而非金钱或地位。财富是拥有睡觉时也能赚钱的资产。" },
+            { text: "If you can't decide, the answer is no.", zh: "如果你无法决定，答案就是不。" },
+            { text: "The most important skill for getting rich is becoming a perpetual learner.", zh: "致富最重要的技能是成为终身学习者。" },
+            { text: "Desire is a contract you make with yourself to be unhappy until you get what you want.", zh: "欲望是你与自己签订的合同——在得到之前保持不幸福。" },
+            { text: "Read what you love until you love to read.", zh: "读你爱读的书，直到你爱上阅读本身。" },
+            { text: "A busy mind accelerates the perceived passage of time. Buy time by living fully in the moment.", zh: "忙碌的心加速了时间的流逝。活在当下，就是在买时间。" },
+            { text: "Specific knowledge is found by pursuing your genuine curiosity and passion.", zh: "独特知识来自追随你真正的好奇心和热情。" },
+            { text: "Play long-term games with long-term people.", zh: "与长期主义者玩长期主义的游戏。" }
+        ];
+
+        let quoteIndex = 0;
+        const quoteEl = document.getElementById('quoteText');
+
+        setInterval(() => {
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteEl.textContent = quotes[quoteIndex].zh;
+                quoteEl.style.opacity = 1;
+            }, 400);
+        }, 6000);
+
+        quoteEl.style.transition = 'opacity 0.4s';
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.episode-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    if (filter === 'all' || card.dataset.tags.includes(filter)) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.4s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Track clicks to external players
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = btn.closest('.episode-card');
+                const title = card.querySelector('.episode-title').textContent;
+                const platform = btn.textContent;
+
+                const np = document.getElementById('nowPlaying');
+                document.getElementById('npTitle').textContent = title;
+                document.getElementById('npSub').textContent = `在 ${platform} 中播放`;
+                np.classList.add('active');
+            });
+        });
+
+        // Simple staggered entrance animation via CSS
+        document.querySelectorAll('.episode-card, .wisdom-card, .resource-link').forEach((el, i) => {
+            el.style.animation = `fadeIn 0.5s ease ${i * 0.08}s both`;
+        });
+    </script>
+</body>
+</html>
