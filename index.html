@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naval Ravikant 智慧频道 — 随时收听</title>
+    <title>思想者频道 — Naval & Munger 智慧精选</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+SC:wght@400;600;700&display=swap');
 
@@ -595,6 +595,75 @@
             color: var(--accent);
         }
 
+        /* Person nav tabs */
+        .person-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(8, 11, 22, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .person-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .person-tab:hover {
+            border-color: rgba(129, 140, 248, 0.3);
+            color: var(--text);
+        }
+
+        .person-tab.active {
+            background: linear-gradient(135deg, rgba(129, 140, 248, 0.2), rgba(99, 102, 241, 0.1));
+            border-color: rgba(129, 140, 248, 0.4);
+            color: #c7d2fe;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.1);
+        }
+
+        .person-tab .tab-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .person-section {
+            display: none;
+        }
+
+        .person-section.active {
+            display: block;
+        }
+
+        /* Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 48px 0;
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -628,6 +697,20 @@
     <div class="bg-grid"></div>
 
     <div class="container">
+        <!-- Person Navigation -->
+        <nav class="person-nav">
+            <button class="person-tab active" data-person="naval">
+                <span class="tab-avatar" style="background: linear-gradient(135deg, #818cf8, #6366f1); color: white;">N</span>
+                Naval Ravikant
+            </button>
+            <button class="person-tab" data-person="munger">
+                <span class="tab-avatar" style="background: linear-gradient(135deg, #fbbf24, #d97706); color: #000;">M</span>
+                Charlie Munger
+            </button>
+        </nav>
+
+        <!-- === NAVAL SECTION === -->
+        <div class="person-section active" id="naval-section">
         <header>
             <div class="avatar">N</div>
             <h1>Naval Ravikant 智慧频道</h1>
@@ -1065,8 +1148,395 @@
             </a>
         </div>
 
+        </div><!-- end naval-section -->
+
+        <!-- === CHARLIE MUNGER SECTION === -->
+        <div class="person-section" id="munger-section">
+        <header>
+            <div class="avatar" style="background: linear-gradient(135deg, #fbbf24, #d97706);">M</div>
+            <h1>Charlie Munger 智慧频道</h1>
+            <p class="subtitle">伯克希尔副主席，巴菲特的终身合伙人，多元思维模型的布道者。享年 99 岁，一生追求理性与智慧。</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-num" style="color: #fbbf24;">10+</div>
+                    <div class="stat-label">精选访谈</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" style="color: #fbbf24;">30h+</div>
+                    <div class="stat-label">收听时长</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" style="color: #fbbf24;">11</div>
+                    <div class="stat-label">经典演讲</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Munger Quote -->
+        <div class="quote-banner" style="border-color: rgba(251, 191, 36, 0.15); background: linear-gradient(135deg, rgba(60, 40, 10, 0.4), rgba(30, 20, 5, 0.3));">
+            <div class="quote-text" id="mungerQuoteText">每天起床的时候，争取变得比昨天更聪明一点。</div>
+            <div class="quote-author">— Charlie Munger</div>
+        </div>
+
+        <!-- Munger Legendary -->
+        <div class="section-title">
+            <h2>殿堂级必听</h2>
+            <span class="section-badge">LEGENDARY</span>
+        </div>
+
+        <div class="episodes">
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">1</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Acquired Podcast — Charlie Munger（唯一长篇深度播客）</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2023.10</span>
+                            <span class="meta-tag">Acquired</span>
+                            <span class="meta-tag">~2.5h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    芒格 99 年人生中唯一一次专门的长篇播客访谈。在洛杉矶家中的晚餐桌上，回顾与巴菲特近 50 年的合伙关系、Costco 投资哲学、全球证券市场的问题、投资与赌博的区别。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">伯克希尔</span>
+                    <span class="topic-tag">合伙关系</span>
+                    <span class="topic-tag">Costco</span>
+                    <span class="topic-tag">投资哲学</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://open.spotify.com/episode/5bSdpI3CYrpCvBNXVQBHFY" target="_blank" class="play-btn spotify">Spotify</a>
+                    <a href="https://www.youtube.com/results?search_query=acquired+podcast+charlie+munger" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://www.acquired.fm/episodes/charlie-munger" target="_blank" class="play-btn web">官网</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">2</div>
+                    <div class="episode-info">
+                        <div class="episode-title">CNBC — A Life of Wit and Wisdom（最后的访谈）</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2023.11</span>
+                            <span class="meta-tag">Becky Quick / CNBC</span>
+                            <span class="meta-tag">~1h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    芒格去世前两周的最后一次深度访谈。Becky Quick 前往洛杉矶家中，谈论长寿秘诀、务实投资观、以及过去一个世纪的惊人变革。珍贵的历史记录。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">长寿</span>
+                    <span class="topic-tag">人生回顾</span>
+                    <span class="topic-tag">最后的智慧</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=CNBC+charlie+munger+life+wit+wisdom" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://www.cnbc.com/2023/11/30/full-transcript-from-cnbcs-charlie-munger-a-life-of-wit-and-wisdom-.html" target="_blank" class="play-btn web">文字稿</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">3</div>
+                    <div class="episode-info">
+                        <div class="episode-title">南加州大学毕业演讲 — 论普世智慧</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2007</span>
+                            <span class="meta-tag">USC Marshall</span>
+                            <span class="meta-tag">~45min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    芒格最广为流传的演讲之一。系统阐述多元思维模型、逆向思维、跨学科学习的重要性，以及如何过有意义的人生。几乎所有芒格粉丝的入门必读。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">多元思维模型</span>
+                    <span class="topic-tag">逆向思维</span>
+                    <span class="topic-tag">人生智慧</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+USC+commencement+speech" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://www.madewill.com/the-munger-way/charlie-munger-speech.html" target="_blank" class="play-btn web">中文全文</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-legendary">4</div>
+                    <div class="episode-info">
+                        <div class="episode-title">哈佛学校毕业演讲 — 如何过上痛苦的一生</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">1986</span>
+                            <span class="meta-tag">Harvard School</span>
+                            <span class="meta-tag">~30min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    芒格经典的逆向思维示范：不告诉你如何成功，而是告诉你如何确保人生痛苦 — 吸毒、嫉妒、怨恨、不从他人错误中学习。从反面阐述了幸福人生的密码。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">逆向思维</span>
+                    <span class="topic-tag">人生痛苦</span>
+                    <span class="topic-tag">经典幽默</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+harvard+speech+miserable+life" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://www.madewill.com/master/university-speech-from-charlie-munger.html" target="_blank" class="play-btn web">中文全文</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Munger Premium -->
+        <div class="section-title">
+            <h2>精品推荐</h2>
+            <span class="section-badge" style="background: linear-gradient(135deg, var(--accent), #8b5cf6);">PREMIUM</span>
+        </div>
+
+        <div class="episodes">
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">5</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Colossus — 与 Stripe 创始人 John Collison 对谈</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2023</span>
+                            <span class="meta-tag">Invest Like the Best</span>
+                            <span class="meta-tag">~1h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    芒格与 Stripe 联合创始人的代际对话。分享长期商业成功的要素、美国社会的深层观察、以及伯克希尔的特殊之处。主持人称芒格是"伟大的导师"。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">商业成功</span>
+                    <span class="topic-tag">伯克希尔</span>
+                    <span class="topic-tag">社会观察</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+john+collison+colossus" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://joincolossus.com/episode/munger-a-conversation-with-charlie-munger-john-collison/" target="_blank" class="play-btn web">官网</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">6</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Daily Journal 年会 2023（最后一届）</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2023.02</span>
+                            <span class="meta-tag">CNBC</span>
+                            <span class="meta-tag">~2h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    99 岁的芒格最后一次在 Daily Journal 年会上即兴回答问题。涵盖投资、AI、中国市场、人生哲学。每年的 DJ 年会都是芒格粉丝的"朝圣"盛会。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">投资</span>
+                    <span class="topic-tag">AI</span>
+                    <span class="topic-tag">中国市场</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+daily+journal+2023+annual+meeting" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://marcellus.in/story/charlie-munger-qa-2023-daily-journal-annual-meeting-full-transcript/" target="_blank" class="play-btn web">文字稿</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">7</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Daily Journal 年会 2022</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2022.02</span>
+                            <span class="meta-tag">Yahoo Finance</span>
+                            <span class="meta-tag">~2h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    98 岁的芒格关于分散投资的颠覆性观点："你不需要那么多该死的分散投资 — 一生能找到四个好资产就够了。"还谈论了比特币和中国投资。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">集中投资</span>
+                    <span class="topic-tag">比特币</span>
+                    <span class="topic-tag">中国</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+daily+journal+2022+annual+meeting" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">8</div>
+                    <div class="episode-info">
+                        <div class="episode-title">《华尔街日报》六小时深度专访</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2019.04</span>
+                            <span class="meta-tag">WSJ</span>
+                            <span class="meta-tag">~6h（精编版~1.5h）</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    95 岁的芒格在洛杉矶家中接受《华尔街日报》马拉松式专访。从童年、法学院、投资生涯到人生哲学，是理解芒格完整人生轨迹的最佳资料。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">人生轨迹</span>
+                    <span class="topic-tag">投资生涯</span>
+                    <span class="topic-tag">深度访谈</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+wall+street+journal+interview+2019" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://www.xindaoyi.com/charlie-munger-2019-04-23/" target="_blank" class="play-btn web">中文实录</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">9</div>
+                    <div class="episode-info">
+                        <div class="episode-title">Caltech 演讲 — 学术界的跨学科缺失</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2008</span>
+                            <span class="meta-tag">Caltech</span>
+                            <span class="meta-tag">~1h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    芒格在加州理工学院的深度学术演讲。批判学术界的"铁锤人"思维，主张社会科学需要多学科融合。揭示了奢侈品涨价反而增加需求等反直觉商业洞察。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">跨学科</span>
+                    <span class="topic-tag">学术批判</span>
+                    <span class="topic-tag">激励机制</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+caltech+lecture+academic" target="_blank" class="play-btn youtube">YouTube</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-rank rank-premium">10</div>
+                    <div class="episode-info">
+                        <div class="episode-title">人类误判心理学（芒格十一讲之巅峰）</div>
+                        <div class="episode-meta">
+                            <span class="meta-tag">2005</span>
+                            <span class="meta-tag">穷查理宝典</span>
+                            <span class="meta-tag">~2h（阅读）</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="episode-desc">
+                    芒格系统总结的 25 种人类认知偏差。从社会认同、权威误导到可得性偏差，这是芒格对行为心理学最深入的贡献，也是投资者和决策者的必读经典。
+                </div>
+                <div class="episode-topics">
+                    <span class="topic-tag">认知偏差</span>
+                    <span class="topic-tag">行为心理学</span>
+                    <span class="topic-tag">25种误判</span>
+                </div>
+                <div class="play-links">
+                    <a href="https://www.youtube.com/results?search_query=charlie+munger+psychology+human+misjudgment" target="_blank" class="play-btn youtube">YouTube</a>
+                    <a href="https://github.com/zhengxixuan/CharlieMungerTalk" target="_blank" class="play-btn web">GitHub 文集</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Munger Core Wisdom -->
+        <div class="section-title">
+            <h2>Munger 核心思想地图</h2>
+        </div>
+
+        <div class="wisdom-grid">
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f9e9;</div>
+                <div class="wisdom-title">多元思维模型</div>
+                <div class="wisdom-text">你必须拥有多个来自不同学科的思维模型。只靠一两个模型，你会扭曲现实来适应你的模型。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f504;</div>
+                <div class="wisdom-title">逆向思维</div>
+                <div class="wisdom-text">反过来想，总是反过来想。想知道如何成功？先研究如何确保失败，然后避免它。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x26d4;</div>
+                <div class="wisdom-title">能力圈</div>
+                <div class="wisdom-text">知道自己不知道什么，比聪明更重要。留在你的能力圈内，把圈子画得尽可能清晰。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f4c8;</div>
+                <div class="wisdom-title">耐心与复利</div>
+                <div class="wisdom-text">大钱不在买卖之间，而在等待之中。找到湿的雪和很长的坡，然后让复利去工作。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f9e0;</div>
+                <div class="wisdom-title">认知偏差</div>
+                <div class="wisdom-text">人类有 25 种系统性误判倾向。认识它们是理性决策的第一步。"铁锤人"只会用锤子解决一切问题。</div>
+            </div>
+            <div class="wisdom-card">
+                <div class="wisdom-icon">&#x1f4d6;</div>
+                <div class="wisdom-title">终身学习</div>
+                <div class="wisdom-text">每天睡前都比醒来时更聪明一点。认真完成每一个任务，慢慢地，你会得到应得的一切。</div>
+            </div>
+        </div>
+
+        <!-- Munger Resources -->
+        <div class="section-title">
+            <h2>延伸阅读资源</h2>
+        </div>
+
+        <div class="resources">
+            <a href="https://www.madewill.com/the-munger-way/%E6%9F%A5%E7%90%86%E2%88%99%E8%8A%92%E6%A0%BC%E7%9A%84%E8%AE%BF%E8%B0%88%E8%B5%84%E6%96%99%E5%90%88%E8%BE%91%EF%BC%88%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E6%95%B4%E7%90%86%EF%BC%89.html" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1f4da;</span>
+                <div class="resource-info">
+                    <div class="resource-name">芒格学院 — 访谈资料合辑（史上最全整理）</div>
+                    <div class="resource-desc">涵盖芒格几十年来的所有重要访谈、演讲和文章</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+            <a href="https://github.com/zhengxixuan/CharlieMungerTalk" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1f4bb;</span>
+                <div class="resource-info">
+                    <div class="resource-name">GitHub — 查理·芒格文集</div>
+                    <div class="resource-desc">芒格十一讲完整中文版，开源可下载</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+            <a href="https://worldlypartners.com/charlie-munger-archive/" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1f3db;&#xfe0f;</span>
+                <div class="resource-info">
+                    <div class="resource-name">Worldly Partners — Charlie Munger Archive</div>
+                    <div class="resource-desc">最完整的英文芒格档案，含所有 Daily Journal 年会视频和文字稿</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+            <a href="https://www.36kr.com/p/1722454392833" target="_blank" class="resource-link">
+                <span class="resource-icon">&#x1f4d6;</span>
+                <div class="resource-info">
+                    <div class="resource-name">36氪 — 了解芒格的智慧，看这几本书就够了</div>
+                    <div class="resource-desc">《穷查理宝典》《芒格之道》等书籍推荐与导读</div>
+                </div>
+                <span class="resource-arrow">&rarr;</span>
+            </a>
+        </div>
+
+        </div><!-- end munger-section -->
+
         <footer>
-            <p>Naval Ravikant 智慧频道 &mdash; 精心策展，随时收听</p>
+            <p>思想者频道 &mdash; Naval Ravikant & Charlie Munger 智慧精选</p>
             <p style="margin-top: 8px; font-size: 0.72rem;">所有内容版权归原创作者所有，本页仅作索引导航</p>
         </footer>
     </div>
@@ -1085,44 +1555,78 @@
     </div>
 
     <script>
-        // Quote rotation
-        const quotes = [
-            { text: "Seek wealth, not money or status. Wealth is having assets that earn while you sleep.", zh: "追求财富，而非金钱或地位。财富是拥有睡觉时也能赚钱的资产。" },
-            { text: "If you can't decide, the answer is no.", zh: "如果你无法决定，答案就是不。" },
-            { text: "The most important skill for getting rich is becoming a perpetual learner.", zh: "致富最重要的技能是成为终身学习者。" },
-            { text: "Desire is a contract you make with yourself to be unhappy until you get what you want.", zh: "欲望是你与自己签订的合同——在得到之前保持不幸福。" },
-            { text: "Read what you love until you love to read.", zh: "读你爱读的书，直到你爱上阅读本身。" },
-            { text: "A busy mind accelerates the perceived passage of time. Buy time by living fully in the moment.", zh: "忙碌的心加速了时间的流逝。活在当下，就是在买时间。" },
-            { text: "Specific knowledge is found by pursuing your genuine curiosity and passion.", zh: "独特知识来自追随你真正的好奇心和热情。" },
-            { text: "Play long-term games with long-term people.", zh: "与长期主义者玩长期主义的游戏。" }
+        // === Person Tab Switching ===
+        const personTabs = document.querySelectorAll('.person-tab');
+        const personSections = document.querySelectorAll('.person-section');
+
+        personTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const person = tab.dataset.person;
+                personTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                personSections.forEach(s => {
+                    s.classList.remove('active');
+                    if (s.id === person + '-section') {
+                        s.classList.add('active');
+                        s.querySelectorAll('.episode-card, .wisdom-card, .resource-link').forEach((el, i) => {
+                            el.style.animation = `fadeIn 0.4s ease ${i * 0.06}s both`;
+                        });
+                    }
+                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // === Naval Quote Rotation ===
+        const navalQuotes = [
+            "追求财富，而非金钱或地位。财富是拥有睡觉时也能赚钱的资产。",
+            "如果你无法决定，答案就是不。",
+            "致富最重要的技能是成为终身学习者。",
+            "欲望是你与自己签订的合同——在得到之前保持不幸福。",
+            "读你爱读的书，直到你爱上阅读本身。",
+            "忙碌的心加速了时间的流逝。活在当下，就是在买时间。",
+            "独特知识来自追随你真正的好奇心和热情。",
+            "与长期主义者玩长期主义的游戏。"
         ];
 
-        let quoteIndex = 0;
-        const quoteEl = document.getElementById('quoteText');
+        const mungerQuotes = [
+            "每天起床的时候，争取变得比昨天更聪明一点。",
+            "反过来想，总是反过来想。",
+            "我之所以能有今天，靠的就是不去追逐平庸的机会。",
+            "走正道，路越走越宽。",
+            "一生中你不需要很多次正确 — 只需要少数几次大的正确。",
+            "如果你想要蚂蚁，就把糖撒在地上。激励机制决定一切。",
+            "知道自己不知道什么，比聪明更重要。",
+            "大钱不在买卖之间，而在等待之中。"
+        ];
 
-        setInterval(() => {
-            quoteIndex = (quoteIndex + 1) % quotes.length;
-            quoteEl.style.opacity = 0;
-            setTimeout(() => {
-                quoteEl.textContent = quotes[quoteIndex].zh;
-                quoteEl.style.opacity = 1;
-            }, 400);
-        }, 6000);
+        function rotateQuotes(elementId, quotesArr) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            let idx = 0;
+            el.style.transition = 'opacity 0.4s';
+            setInterval(() => {
+                idx = (idx + 1) % quotesArr.length;
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    el.textContent = quotesArr[idx];
+                    el.style.opacity = 1;
+                }, 400);
+            }, 6000);
+        }
 
-        quoteEl.style.transition = 'opacity 0.4s';
+        rotateQuotes('quoteText', navalQuotes);
+        rotateQuotes('mungerQuoteText', mungerQuotes);
 
-        // Filter functionality
+        // === Filter functionality (Naval section) ===
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.episode-card');
-
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 const filter = btn.dataset.filter;
-                cards.forEach(card => {
-                    if (filter === 'all' || card.dataset.tags.includes(filter)) {
+                document.querySelectorAll('#naval-section .episode-card').forEach(card => {
+                    if (filter === 'all' || (card.dataset.tags && card.dataset.tags.includes(filter))) {
                         card.style.display = 'block';
                         card.style.animation = 'fadeIn 0.4s ease';
                     } else {
@@ -1132,13 +1636,13 @@
             });
         });
 
-        // Track clicks to external players
+        // === Track clicks to external players ===
         document.querySelectorAll('.play-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 const card = btn.closest('.episode-card');
+                if (!card) return;
                 const title = card.querySelector('.episode-title').textContent;
                 const platform = btn.textContent;
-
                 const np = document.getElementById('nowPlaying');
                 document.getElementById('npTitle').textContent = title;
                 document.getElementById('npSub').textContent = `在 ${platform} 中播放`;
@@ -1146,9 +1650,9 @@
             });
         });
 
-        // Simple staggered entrance animation via CSS
-        document.querySelectorAll('.episode-card, .wisdom-card, .resource-link').forEach((el, i) => {
-            el.style.animation = `fadeIn 0.5s ease ${i * 0.08}s both`;
+        // === Entrance animations for initial section ===
+        document.querySelectorAll('.person-section.active .episode-card, .person-section.active .wisdom-card, .person-section.active .resource-link').forEach((el, i) => {
+            el.style.animation = `fadeIn 0.5s ease ${i * 0.06}s both`;
         });
     </script>
 </body>
